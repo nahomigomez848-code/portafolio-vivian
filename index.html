@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Creativo | Vivian Sanchez</title>
+    <!-- Importamos fuentes elegantes desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================
+           1. VARIABLES Y CONFIGURACIÓN GLOBAL
+           ========================================== */
+        :root {
+            --bg-color: #0c0a0a;
+            --card-bg: #151212;
+            --card-hover: #1c1718;
+            --border-color: #272121;
+            --border-highlight: rgba(194, 91, 116, 0.4);
+            --text-main: #f5f2f0;
+            --text-muted: #a09593;
+            --accent-color: #7b2438;
+            --accent-rose: #c25b74;
+            --accent-rose-light: #e07d95;
+            --accent-glow: rgba(194, 91, 116, 0.2);
+            --font-title: 'Cinzel', serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0c0a0a;
+            background-image: 
+                radial-gradient(circle at 12% 18%, rgba(123, 36, 56, 0.3) 0%, transparent 45%),
+                radial-gradient(circle at 88% 28%, rgba(194, 91, 116, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 50% 68%, rgba(123, 36, 56, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 18% 88%, rgba(194, 91, 116, 0.2) 0%, transparent 45%),
+                radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 36px 36px;
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ==========================================
+           SPLASH SCREEN ELEGANTE
+           ========================================== */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #181113 0%, #0c0a0a 80%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.8s;
+        }
+
+        #splash-screen.splash-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-inner {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+            max-width: 480px;
+            width: 90%;
+        }
+
+        .splash-monogram {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            color: var(--accent-rose);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            animation: splashFadeIn 1s ease forwards;
+        }
+
+        .splash-title {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: 8px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 40%, #8c7f7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: splashScaleUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .splash-subtitle {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--accent-rose-light);
+            margin-bottom: 35px;
+            opacity: 0;
+            animation: splashFadeIn 1s 0.3s ease forwards;
+        }
+
+        .splash-progress-track {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .splash-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-rose), #f7b2c2);
+            box-shadow: 0 0 12px var(--accent-rose);
+            transition: width 0.15s linear;
+        }
+
+        .splash-status {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            animation: pulseGlow 1.8s infinite ease-in-out;
+        }
+
+        @keyframes splashScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes splashFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ==========================================
+           2. BARRA DE NAVEGACIÓN
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(12, 10, 10, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            letter-spacing: 4px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span.logo-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-rose);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--accent-rose);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-rose);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--text-main);
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* ==========================================
+           3. MARQUESINA (CONTINUOUS RUNNING MARQUEE)
+           ========================================== */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            background: linear-gradient(90deg, #110d0e, #181113, #110d0e);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 0;
+            position: relative;
+            margin: 40px 0 20px 0;
+            user-select: none;
+        }
+
+        /* Desvanecimiento en los costados de la marquesina */
+        .marquee-wrapper::before,
+        .marquee-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-color), transparent);
+        }
+
+        .marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-color), transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeScroll 25s linear infinite;
+        }
+
+        .marquee-wrapper:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding-right: 40px;
+            font-family: var(--font-title);
+            font-size: 0.88rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .marquee-content span.highlight {
+            color: var(--text-main);
+        }
+
+        .marquee-content span.sep {
+            color: var(--accent-rose);
+            font-size: 1.1rem;
+        }
+
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ==========================================
+           4. SISTEMA DE PÁGINAS (SPA)
+           ========================================== */
+        .page-container {
+            display: none;
+            padding: 110px 5% 60px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .page-container.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==========================================
+           5. HERO SECTION (INICIO)
+           ========================================== */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 450px;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 50px;
+        }
+
+        .hero-title-area h1 {
+            font-family: var(--font-title);
+            font-size: clamp(3rem, 7vw, 7.5rem);
+            font-weight: 800;
+            letter-spacing: 8px;
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            background: linear-gradient(180deg, #ffffff 45%, #7e7370 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .hero-signature {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 2.3rem;
+            color: var(--accent-rose);
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 12px 28px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            border-radius: 2px;
+            border: 1px solid var(--text-main);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-rose);
+            border-color: var(--accent-rose);
+            color: #ffffff;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-main);
+            padding: 12px 28px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            border-radius: 2px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-rose);
+            color: var(--accent-rose-light);
+        }
+
+        /* Contenedor con brillo radiante (Halo de luz) */
+        .hero-profile-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Halo y resplandor continuo alrededor de la foto */
+        .hero-profile-aura {
+            position: absolute;
+            inset: -14px;
+            border-radius: 20px;
+            background: radial-gradient(circle at center, rgba(224, 125, 149, 0.65) 0%, rgba(194, 91, 116, 0.45) 40%, rgba(123, 36, 56, 0.25) 70%, transparent 100%);
+            filter: blur(24px);
+            z-index: 0;
+            animation: auraPulseShine 3.6s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes auraPulseShine {
+            0% {
+                transform: scale(0.97);
+                opacity: 0.65;
+                filter: blur(20px);
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+                filter: blur(30px);
+            }
+            100% {
+                transform: scale(0.97);
+                opacity: 0.65;
+                filter: blur(20px);
+            }
+        }
+
+        /* Tarjeta de perfil Hero con borde luminoso y tamaño ampliado */
+        .hero-profile-card {
+            background-color: var(--card-bg);
+            border: 2px solid rgba(194, 91, 116, 0.7);
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 30px rgba(194, 91, 116, 0.45),
+                        0 0 65px rgba(123, 36, 56, 0.35),
+                        0 15px 35px rgba(0, 0, 0, 0.8);
+            animation: borderGlowShine 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlowShine {
+            0% {
+                border-color: rgba(194, 91, 116, 0.6);
+                box-shadow: 0 0 25px rgba(194, 91, 116, 0.4), 0 0 50px rgba(123, 36, 56, 0.3), 0 15px 35px rgba(0, 0, 0, 0.8);
+            }
+            50% {
+                border-color: rgba(240, 150, 172, 0.95);
+                box-shadow: 0 0 45px rgba(224, 125, 149, 0.75), 0 0 85px rgba(194, 91, 116, 0.55), 0 20px 45px rgba(0, 0, 0, 0.85);
+            }
+            100% {
+                border-color: rgba(194, 91, 116, 0.6);
+                box-shadow: 0 0 25px rgba(194, 91, 116, 0.4), 0 0 50px rgba(123, 36, 56, 0.3), 0 15px 35px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        .hero-profile-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: var(--accent-rose-light);
+            box-shadow: 0 0 50px rgba(224, 125, 149, 0.9), 0 0 100px rgba(194, 91, 116, 0.7), 0 25px 50px rgba(0, 0, 0, 0.9);
+        }
+
+        .hero-profile-card img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: block;
+        }
+
+        .hero-profile-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            color: var(--accent-rose-light);
+            letter-spacing: 2.5px;
+            font-weight: 700;
+            background: rgba(194, 91, 116, 0.15);
+            padding: 6px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(194, 91, 116, 0.4);
+            box-shadow: 0 0 12px rgba(194, 91, 116, 0.25);
+        }
+
+        /* ==========================================
+           6. CARRUSEL INTERACTIVO DE PROYECTOS
+           ========================================== */
+        .carousel-section {
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 18px;
+        }
+
+        .carousel-heading-wrap h2 {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .carousel-heading-wrap p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .carousel-counter {
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--accent-rose-light);
+            margin-right: 10px;
+            font-weight: 600;
+        }
+
+        .carousel-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 1.1rem;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent-rose);
+            border-color: var(--accent-rose);
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Contenedor del Carrusel */
+        .carousel-viewport {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 25px;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        /* ==========================================
+           7. CARDS DINÁMICAS (SPOTLIGHT & 3D FEEL)
+           ========================================== */
+        .dynamic-card {
+            flex: 0 0 calc((100% - 50px) / 3);
+            min-width: 300px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Brillo dinámico de luz que sigue al cursor */
+        .dynamic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(194, 91, 116, 0.15),
+                    transparent 45%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+
+        .dynamic-card:hover::before {
+            opacity: 1;
+        }
+
+        .dynamic-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-rose);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: #110e0f;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dynamic-card:hover .card-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(12, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            z-index: 2;
+            transition: var(--transition-smooth);
+        }
+
+        .dynamic-card:hover .card-tag {
+            border-color: var(--accent-rose);
+            color: var(--accent-rose-light);
+        }
+
+        .card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-number {
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            color: var(--accent-rose);
+            margin-bottom: 6px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            transition: color 0.3s ease;
+        }
+
+        .dynamic-card:hover .card-title {
+            color: #ffffff;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .card-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: var(--accent-rose-light);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.3s ease;
+        }
+
+        .dynamic-card:hover .card-link {
+            gap: 12px;
+            color: #ffffff;
+        }
+
+        /* Dots indicadores de carrusel */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-dot.active {
+            width: 28px;
+            border-radius: 10px;
+            background: var(--accent-rose);
+            box-shadow: 0 0 10px var(--accent-rose);
+        }
+
+        /* ==========================================
+           8. MODAL INTERACTIVO DE DETALLES
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(8, 6, 7, 0.88);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: #141011;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            max-width: 720px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--accent-glow);
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 5;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close-btn:hover {
+            background: var(--accent-rose);
+            border-color: var(--accent-rose);
+            color: #fff;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-badge {
+            font-size: 0.75rem;
+            color: var(--accent-rose);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .modal-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .modal-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+
+        .modal-meta-item span {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .modal-meta-item strong {
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        /* ==========================================
+           9. SECCIONES INTERNAS
+           ========================================== */
+        .page-title {
+            font-family: var(--font-title);
+            font-size: 2.6rem;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .page-description {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            max-width: 720px;
+            line-height: 1.6;
+        }
+
+        /* Sobre Mí */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .about-image img:hover {
+            border-color: var(--accent-rose);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        /* Pasatiempo */
+        #page-pasatiempo {
+            position: relative;
+        }
+
+        #page-pasatiempo::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 380px;
+            background: radial-gradient(circle, rgba(194, 91, 116, 0.16) 0%, rgba(123, 36, 56, 0.08) 50%, transparent 80%);
+            filter: blur(50px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hobby-card {
+            background: linear-gradient(180deg, rgba(24, 18, 20, 0.95) 0%, rgba(15, 12, 13, 0.98) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-rose);
+            box-shadow: 0 15px 40px var(--accent-glow), 0 0 25px rgba(194, 91, 116, 0.3);
+        }
+
+        .hobby-banner {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: #141011;
+        }
+
+        .hobby-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block;
+        }
+
+        .hobby-card:hover .hobby-banner img {
+            transform: scale(1.08);
+        }
+
+        .hobby-tag {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(12, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 91, 116, 0.45);
+            color: var(--accent-rose-light);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 13px;
+            border-radius: 20px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .hobby-body {
+            padding: 26px 28px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hobby-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .hobby-card p {
+            color: var(--text-muted);
+            font-size: 0.94rem;
+            line-height: 1.7;
+        }
+
+        /* Fortalezas */
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .strength-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 28px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-rose);
+            transition: var(--transition-smooth);
+        }
+
+        .strength-item:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            border-color: var(--accent-rose);
+            box-shadow: 0 10px 25px var(--accent-glow);
+        }
+
+        .strength-item h4 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: var(--font-title);
+        }
+
+        .strength-item p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           SECCIÓN: EXPLORANDO CONMIGO (GALERÍA DE FOTOS)
+           ========================================== */
+        .exploring-header-box {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .exploring-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .gallery-filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 9px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: var(--font-sans);
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-rose);
+            border-color: var(--accent-rose);
+            color: #ffffff;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .upload-photo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-rose));
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(194, 91, 116, 0.35);
+        }
+
+        .upload-photo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(194, 91, 116, 0.6);
+            background: linear-gradient(135deg, var(--accent-rose), #d66c85);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 26px;
+        }
+
+        .gallery-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-rose);
+            box-shadow: 0 15px 35px var(--accent-glow);
+        }
+
+        .gallery-thumb-wrap {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            background: #141011;
+        }
+
+        .gallery-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block;
+        }
+
+        .gallery-item:hover .gallery-thumb-wrap img {
+            transform: scale(1.08);
+        }
+
+        .gallery-tag {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(12, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 91, 116, 0.4);
+            color: var(--accent-rose-light);
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .gallery-overlay-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            width: 50px;
+            height: 50px;
+            background: rgba(194, 91, 116, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            color: #ffffff;
+            font-size: 1.3rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            z-index: 2;
+        }
+
+        .gallery-item:hover .gallery-overlay-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .gallery-info {
+            padding: 20px 22px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .gallery-title {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .gallery-caption {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Lightbox para visor de fotos en pantalla completa */
+        .photo-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(8, 6, 7, 0.94);
+            backdrop-filter: blur(14px);
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .photo-lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 72vh;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid rgba(194, 91, 116, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px var(--accent-glow);
+        }
+
+        .lightbox-caption-box {
+            text-align: center;
+            margin-top: 18px;
+            max-width: 650px;
+        }
+
+        .lightbox-caption-title {
+            font-family: var(--font-title);
+            font-size: 1.45rem;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .lightbox-caption-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .lightbox-close-btn {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .lightbox-close-btn:hover {
+            background: var(--accent-rose);
+            border-color: var(--accent-rose);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-top: auto;
+            background: #090808;
+        }
+
+        /* Responsividad */
+        @media (max-width: 992px) {
+            .dynamic-card {
+                flex: 0 0 calc((100% - 25px) / 2);
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-profile-container {
+                max-width: 460px;
+                margin: 0 auto;
+            }
+
+            .hero-profile-card img {
+                height: 480px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dynamic-card {
+                flex: 0 0 100%;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav ul li a {
+                font-size: 0.72rem;
+                letter-spacing: 1px;
+            }
+
+            .page-container {
+                padding-top: 95px;
+            }
+
+            .hero-title-area h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-profile-container {
+                max-width: 360px;
+            }
+
+            .hero-profile-card img {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+       SPLASH SCREEN DE CARGA
+       ========================================== -->
+    <div id="splash-screen">
+        <div class="splash-inner">
+            <div class="splash-monogram">Portfolio Creativo</div>
+            <h1 class="splash-title">VIVIAN</h1>
+            <div class="splash-subtitle">Sanchez</div>
+            <div class="splash-progress-track">
+                <div id="splash-bar" class="splash-progress-bar"></div>
+            </div>
+            <div class="splash-status">Iniciando experiencia...</div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       BARRA DE NAVEGACIÓN SUPERIOR
+       ========================================== -->
+    <header>
+        <a class="logo" onclick="switchPage('index')">
+            PORTAFOLIO<span class="logo-dot"></span>
+        </a>
+        <nav>
+            <ul>
+                <li><a onclick="switchPage('index')" id="nav-index" class="active">Index</a></li>
+                <li><a onclick="switchPage('sobre-mi')" id="nav-sobre-mi">Sobre mí</a></li>
+                <li><a onclick="switchPage('pasatiempo')" id="nav-pasatiempo">Pasatiempo</a></li>
+                <li><a onclick="switchPage('fortalezas')" id="nav-fortalezas">Fortalezas</a></li>
+                <li><a onclick="switchPage('explorando')" id="nav-explorando">Explorando conmigo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+       PÁGINA 1: INDEX (INICIO)
+       ========================================== -->
+    <main id="page-index" class="page-container active-page">
+        <!-- Hero Section -->
+        <section class="hero-grid">
+            <div class="hero-title-area">
+                <h1>PORTAFOLIO</h1>
+                <p class="hero-subtitle">Conocimientos en Computación, Diseño Gráfico y Experiencias Digitales de Alta
+                    Estética.</p>
+                <div class="hero-signature">Vivian Sanchez</div>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="switchPage('explorando')">Contactar</button>
+                    <button class="btn-outline" onclick="switchPage('sobre-mi')">Saber más de mí</button>
+                </div>
+            </div>
+            <div class="hero-profile-container">
+                <div class="hero-profile-aura"></div>
+                <div class="hero-profile-card">
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 10.37.08 AM.jpeg" alt="Vivian Sanchez"
+                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600';">
+                    <span class="hero-badge">ESTUDIANTE DE INFORMÁTICA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUESINA DINÁMICA DE CONCEPTOS -->
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                <!-- Bloque 1 -->
+                <div class="marquee-content">
+                    <span class="highlight">DISEÑO DIGITAL</span><span class="sep">•</span>
+                    <span>COMPUTACIÓN & SISTEMAS</span><span class="sep">•</span>
+                    <span class="highlight">DIRECCIÓN DE ARTE</span><span class="sep">•</span>
+                    <span>UI / UX INTERFACES</span><span class="sep">•</span>
+                    <span class="highlight">CREATIVIDAD ATEMPORAL</span><span class="sep">•</span>
+                    <span>VIVIAN SANCHEZ</span><span class="sep">•</span>
+                    <span class="highlight">ALTA ESTÉTICA</span><span class="sep">•</span>
+                </div>
+                <!-- Bloque 2 (Duplicado para loop infinito sin cortes) -->
+                <div class="marquee-content" aria-hidden="true">
+                    <span class="highlight">DISEÑO DIGITAL</span><span class="sep">•</span>
+                    <span>COMPUTACIÓN & SISTEMAS</span><span class="sep">•</span>
+                    <span class="highlight">DIRECCIÓN DE ARTE</span><span class="sep">•</span>
+                    <span>UI / UX INTERFACES</span><span class="sep">•</span>
+                    <span class="highlight">CREATIVIDAD ATEMPORAL</span><span class="sep">•</span>
+                    <span>VIVIAN SANCHEZ</span><span class="sep">•</span>
+                    <span class="highlight">ALTA ESTÉTICA</span><span class="sep">•</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: CARRUSEL INTERACTIVO DE PROYECTOS -->
+        <section class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-heading-wrap">
+                    <h2>Proyectos Seleccionados</h2>
+                    <p>Explora cada trabajo</p>
+                </div>
+                <div class="carousel-controls">
+                    <div class="carousel-counter" id="carousel-counter">01 / 05</div>
+                    <button class="carousel-btn" id="prev-btn" aria-label="Proyecto anterior">‹</button>
+                    <button class="carousel-btn" id="next-btn" aria-label="Siguiente proyecto">›</button>
+                </div>
+            </div>
+
+            <!-- Viewport del carrusel -->
+            <div class="carousel-viewport" id="carousel-viewport">
+                <div class="carousel-track" id="carousel-track">
+
+                    <!-- CARD DINÁMICA 1 -->
+                    <article class="dynamic-card" onclick="openProjectModal(0)">
+                        <div class="card-img-wrapper">
+                            <span class="card-tag">Impresoras</span>
+                            <img src="Imagen/WhatsApp Image 2026-10-14 at 4.30.24 PM.jpeg">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-number">01</div>
+                            <h3 class="card-title">impresora</h3>
+                            <p class="card-desc">Mantenimiento y reparacion de impresoras de recibo.</p>
+                            <div class="card-footer">
+                                <span class="card-link">Ver Ficha Detallada →</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD DINÁMICA 2 -->
+                    <article class="dynamic-card" onclick="openProjectModal(1)">
+                        <div class="card-img-wrapper">
+                            <span class="card-tag">Computadora</span>
+                            <img src="Imagen/WhatsApp Image 2026-10-14 at 4.25.19 PM.jpeg">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-number">02</div>
+                            <h3 class="card-title">Computadora</h3>
+                            <p class="card-desc">Mantenimiento y reparacion de computadoras.</p>
+                            <div class="card-footer">
+                                <span class="card-link">Ver Ficha Detallada →</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD DINÁMICA 3 -->
+                    <article class="dynamic-card" onclick="openProjectModal(2)">
+                        <div class="card-img-wrapper">
+                            <span class="card-tag">cable de red</span>
+                            <img src="Imagen/WhatsApp Image 2026-10-14 at 4.25.56 PM.jpeg">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-number">03</div>
+                            <h3 class="card-title">cable de red</h3>
+                            <p class="card-desc">hacer cables de red.</p>
+                            <div class="card-footer">
+                                <span class="card-link">Ver Ficha Detallada →</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD DINÁMICA 4 -->
+                    <article class="dynamic-card" onclick="openProjectModal(3)">
+                        <div class="card-img-wrapper">
+                            <span class="card-tag">Excel</span>
+                            <img src="Imagen/WhatsApp Image 2026-10-14 at 4.52.22 PM.jpeg">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-number">04</div>
+                            <h3 class="card-title">excel</h3>
+                            <p class="card-desc">Inventarios en excel.</p>
+                            <div class="card-footer">
+                                <span class="card-link">Ver Ficha Detallada →</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CARD DINÁMICA 5 -->
+                    <article class="dynamic-card" onclick="openProjectModal(4)">
+                        <div class="card-img-wrapper">
+                            <span class="card-tag">celulares</span>
+                            <img src="Imagen/WhatsApp Image 2026-10-14 at 4.59.27 PM.jpeg">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-number">05</div>
+                            <h3 class="card-title">celulares</h3>
+                            <p class="card-desc">mantenimiento y reparacion de celulares y tables.</p>
+                            <div class="card-footer">
+                                <span class="card-link">Ver Ficha Detallada →</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <!-- Indicadores tipo Dots -->
+            <div class="carousel-dots" id="carousel-dots"></div>
+        </section>
+    </main>
+
+    <!-- ==========================================
+       PÁGINA 2: SOBRE MÍ
+       ========================================== -->
+    <main id="page-sobre-mi" class="page-container">
+        <h2 class="page-title">Sobre Mí</h2>
+        <p class="page-description">soy Vivian Sanchez una persona alegre, amigable  y cariñosa.
+            me gusta compartir momentos especiales con las personas que quiero y disfrutar de las
+            pequeñas cosas que hacen feliz mi vida.
+            Amo a los animales especialmete a los perros, porque me parecen seres muy especiales
+            y llenos de cariño.
+        Tengo una hermosa familia formada por mi madre, mis cinco hermanas y mi hermano.
+        Mi familia es una parte muy importante de mi vida y valoro mucho cada momento 
+        que compartimos juntos.
+        Me considero una persona cn muchas ganas de aprender, crecer y cumplir mis metas, siempre 
+        tratando de ser mejor cada dia.
+
+
+
+
+
+            </p>Se tu misma disfruta cada momento 
+            y nunca dejes de luchar por tus sueños.
+         <div class="about-grid">
+            <div class=""> <p></p>
+                <div style="margin-top: 30px;">
+                    <button class="btn-primary" onclick="switchPage('fortalezas')">Mis Fortalezas →</button>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="Imagen/WhatsApp Image 2026-10-15 at 9.13.53 AM.jpeg"
+                    alt="Sobre mi foto">
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+       PÁGINA 3: PASATIEMPO
+       ========================================== -->
+    <main id="page-pasatiempo" class="page-container">
+        <h2 class="page-title">Pasatiempos & Pasiones</h2>
+        <p class="page-description">Mis momentos mas memorables.</p>
+
+        <div class="hobbies-grid">
+            <!-- Pasatiempo 1 -->
+            <div class="hobby-card">
+                <div class="hobby-banner">
+                    <span class="hobby-tag">Cine & Series</span>
+                    <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=700" alt="Series y películas">
+                </div>
+                <div class="hobby-body">
+                    <h3>Ver series & películas</h3>
+                    <p>Disfruto de mi tiempo libre viendo nuevos episodios y descubriendo historias que me mantienen entretenida y con ganas de saber qué pasará después. Mis favoritas son series de romance y acción.</p>
+                </div>
+            </div>
+
+            <!-- Pasatiempo 2 -->
+            <div class="hobby-card">
+                <div class="hobby-banner">
+                    <span class="hobby-tag">F1 & music</span>
+                    <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=700" alt="Música y Fórmula 1">
+                </div>
+                <div class="hobby-body">
+                    <h3>Música & Deporte</h3>
+                    <p>Disfruto escuchar música en mi tiempo libre, especialmente música de bandas y baladas. Mi deporte favorito es la Fórmula 1. Me encanta ver las carreras, la velocidad de los monoplazas y la emoción de cada competencia.</p>
+                </div>
+            </div>
+
+            <!-- Pasatiempo 3 -->
+            <div class="hobby-card">
+                <div class="hobby-banner">
+                    <span class="hobby-tag">Amor Canino</span>
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=700" alt="Mis perritos">
+                </div>
+                <div class="hobby-body">
+                    <h3>Mis perritos</h3>
+                    <p>Su cariño y alegría hacen que mis días sean más felices, los considero compañeros muy especiales. Me encanta jugar con ellos, acariciarlos y disfrutar de su compañía. Para mí, los perros son más que mascotas: son parte de mi familia y me brindan momentos llenos de amor y ternura.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+       PÁGINA 4: FORTALEZAS
+       ========================================== -->
+    <main id="page-fortalezas" class="page-container">
+        <h2 class="page-title">Fortalezas</h2>
+        <p class="page-description">.</p>
+
+        <div class="strengths-grid">
+            <div class="strength-item">
+                <h4>Amabilidad</h4>
+                <p>Me considero una persona amable y cariñosa,que disfruta tratar bien a los demas y demostrar afecto alas 
+                    personas que son importantes en mi vida .</p>
+            </div>
+            <div class="strength-item">
+                <h4>Empatia</h4>
+                <p>Me gusta comprender los sentimientos de los demas y ponerme en su lugar cuando estan pasando por momentos dificiles.</p>
+            </div>
+            <div class="strength-item">
+                <h4>Buena comunicacion</h4>
+                <p>Considero que escuchar y respetar los diferentes puntos de vista es importante para mantener buenas relaciones y evitar
+                    malentendidos.</p>
+            </div>
+            <div class="strength-item">
+                <h4>Paciencia</h4>
+                <p>Entiendo que las cosas llevan tiempo y que es importate aprender de los errores,tener paciencia y seguir adelante para logar mis objetivos.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+       PÁGINA 5: EXPLORANDO CONMIGO (GALERÍA DE FOTOS)
+       ========================================== -->
+    <main id="page-explorando" class="page-container">
+        <div class="exploring-header-box">
+            <h2 class="page-title">Explorando Conmigo</h2>
+            <p class="page-description" style="margin: 0 auto 30px auto;">
+                 Lugares que eh visitado.
+            </p>
+        </div>
+
+        <!-- Barra de Control: Filtros y Botón de Subida -->
+        <div class="exploring-actions">
+            <div class="gallery-filter-tabs">
+                <class="filter-btn" onclick="filterGallery('momentos', this)"
+                < class="filter-btn" onclick="filterGallery('proyectos', this)"
+                < class="filter-btn" onclick="filterGallery('pasiones', this)"
+            </div>
+
+            <!-- Input invisible para subir fotos locales interactivamente -->
+            <div>
+                <input type="file" id="user-photo-input" accept="image/*" multiple style="display: none;" onchange="()">
+                <button class="" ="document.('').()">
+                
+                </button>
+            </div>
+        </div>
+
+        <!-- Cuadrícula Dinámica de Fotos -->
+        <div class="gallery-grid" id="exploring-gallery-grid">
+
+            <!-- FOTO 1: Vivian Retrato -->
+            <div class="gallery-item" data-category="momentos" onclick="openPhotoLightbox(this)">
+                <div class="gallery-thumb-wrap">
+                    <span class="gallery-tag">tegucigalpa</span>
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 10.49.52 AM.jpeg" alt="Vivian Sanchez" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800';">
+                    <div class="gallery-overlay-icon">🔍</div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Basilica de suyapa</h3>
+                    <p class="gallery-caption">Disfrutando el Dia de la  virgen de suyapa.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 2: Excel e Inventarios -->
+            <div class="gallery-item" data-category="proyectos" onclick="openPhotoLightbox(this)">
+                <div class="gallery-thumb-wrap">
+                    <span class="gallery-tag">siguatepeque</span>
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 11.05.17 AM.jpeg" alt="Inventarios en Excel" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800';">
+                    <div class="gallery-overlay-icon">🔍</div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Balneario</h3>
+                    <p class="gallery-caption">Disfrutando del hermoso Balneario de lekes.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 3: Celulares y Dispositivos -->
+            <div class="gallery-item" data-category="proyectos" onclick="openPhotoLightbox(this)">
+                <div class="gallery-thumb-wrap">
+                    <span class="gallery-tag">mineral</span>
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 11.11.11 AM.jpeg" alt="Mantenimiento de Celulares" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800';">
+                    <div class="gallery-overlay-icon">🔍</div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Montaña</h3>
+                    <p class="gallery-caption">Disfrutando subiendo un hermoso cerro, y bañando en sus bellas quebradas.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 4: Mis Perritos -->
+            <div class="gallery-item" data-category="pasiones" onclick="openPhotoLightbox(this)">
+                <div class="gallery-thumb-wrap">
+                    <span class="gallery-tag">copán</span>
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 11.19.14 AM.jpeg" alt="Amor por mis perritos">
+                    <div class="gallery-overlay-icon">🔍</div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Ruinas de copán</h3>
+                    <p class="gallery-caption">viendo sus hermosas ruinas y cuevas.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 5: Fórmula 1 -->
+            <div class="gallery-item" data-category="pasiones" onclick="openPhotoLightbox(this)">
+                <div class="gallery-thumb-wrap">
+                    <span class="gallery-tag">comayagua</span>
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 11.33.05 AM.jpeg">
+                    <div class="gallery-overlay-icon">🔍</div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Catedral de comayagua</h3>
+                    <p class="gallery-caption">Un hermoso dia de aprendizaje y descubriendo nuevos lugares.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 6: Momentos y Creatividad -->
+            <div class="gallery-item" data-category="momentos" onclick="openPhotoLightbox(this)">
+                <div class="gallery-thumb-wrap">
+                    <span class="gallery-tag">Atlantida</span>
+                    <img src="Imagen/WhatsApp Image 2026-10-15 at 11.40.38 AM.jpeg" alt="Recuerdos fotográficos">
+                    <div class="gallery-overlay-icon">🔍</div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">La ensenada tela</h3>
+                    <p class="gallery-caption">disfrutando las hermosas playas en familia.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ==========================================
+       LIGHTBOX / VISOR DE FOTOS EN PANTALLA COMPLETA
+       ========================================== -->
+    <div class="photo-lightbox" id="photo-lightbox" onclick="closePhotoLightboxOnBackdrop(event)">
+        <div class="lightbox-content">
+            <button class="lightbox-close-btn" onclick="closePhotoLightbox()" aria-label="Cerrar">&times;</button>
+            <img id="lightbox-img" src="" alt="Foto ampliada">
+            <div class="lightbox-caption-box">
+                <h3 class="lightbox-caption-title" id="lightbox-title">Título</h3>
+                <p class="lightbox-caption-text" id="lightbox-desc">Descripción</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       MODAL DINÁMICO PARA DETALLES DE PROYECTO
+       ========================================== -->
+    <div class="modal-overlay" id="project-modal" onclick="closeProjectModalOnBackdrop(event)">
+        <div class="modal-container">
+            <button class="modal-close-btn" onclick="closeProjectModal()" aria-label="Cerrar">&times;</button>
+            <img id="modal-img" src="" alt="Vista previa del proyecto" class="modal-image">
+            <div class="modal-body">
+                <span class="modal-badge" id="modal-badge">CATEGORÍA</span>
+                <h3 class="modal-title" id="modal-title">Título del Proyecto</h3>
+                <p class="modal-desc" id="modal-desc">Descripción completa...</p>
+
+                <div class="modal-meta-grid">
+                    <div class="modal-meta-item">
+                        <span>Rol</span>
+                        <strong id="modal-role">Diseño & Frontend</strong>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span>Año</span>
+                        <strong id="modal-year">2026</strong>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span>Herramientas</span>
+                        <strong id="modal-tools">Figma, HTML, CSS</strong>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button class="btn-primary" onclick="closeProjectModal()">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       PIE DE PÁGINA (FOOTER)
+       ========================================== -->
+    <footer>
+        <p>© 2026 Vivian Sanchez • Creado con inspiración, detalle y dedicación</p>
+    </footer>
+
+    <!-- ==========================================
+       SCRIPTS JAVASCRIPT
+       ========================================== -->
+    <script>
+        /* ------------------------------------------
+           1. SPLASH SCREEN INTELIGENTE
+           ------------------------------------------ */
+        window.addEventListener('DOMContentLoaded', () => {
+            const splashScreen = document.getElementById('splash-screen');
+            const splashBar = document.getElementById('splash-bar');
+            let progress = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 20) + 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    if (splashBar) splashBar.style.width = '100%';
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if (splashScreen) {
+                            splashScreen.classList.add('splash-hidden');
+                        }
+                    }, 500);
+                } else {
+                    if (splashBar) splashBar.style.width = progress + '%';
+                }
+            }, 80);
+        });
+
+        /* ------------------------------------------
+           2. SISTEMA DE NAVEGACIÓN SPA
+           ------------------------------------------ */
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page-container');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active-page');
+            }
+
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            const activeNavLink = document.getElementById('nav-' + pageId);
+            if (activeNavLink) {
+                activeNavLink.classList.add('active');
+            }
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        /* ------------------------------------------
+           3. DATOS DE PROYECTOS PARA MODAL DINÁMICO
+           ------------------------------------------ */
+        const projectData = [
+            {
+                title: "Velvet Studio",
+                category: "Identidad & Web",
+                img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=700",
+                desc: "Proyecto de branding integral y desarrollo web para una agencia boutique de diseño. Se implementaron tipografías serif editoriales, animaciones fluidas y un diseño sobrio de lujo contemporáneo.",
+                role: "Directora Creativa & UI",
+                year: "2026",
+                tools: "Figma, CSS3, Grid & Flex"
+            },
+            {
+                title: "Aurora Shop",
+                category: "E-Commerce",
+                img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=700",
+                desc: "Plataforma de comercio electrónico de alta gama. El objetivo principal fue reducir la fricción visual y priorizar la fotografía de producto con transiciones sutiles y arquitectura de información refinada.",
+                role: "Diseño UI / UX",
+                year: "2026",
+                tools: "Figma, JavaScript, CSS Grid"
+            },
+            {
+                title: "Mindspace",
+                category: "Landing Page",
+                img: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=700",
+                desc: "Landing page diseñada para potenciar la suscripción y el interés en una app de meditación y enfoque diario. Se utilizaron contrastes suaves y jerarquías tipográficas envolventes.",
+                role: "Especialista Frontend",
+                year: "2025",
+                tools: "HTML5, CSS, Animaciones JS"
+            },
+            {
+                title: "Lumina Editorial",
+                category: "Editorial & Layout",
+                img: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=700",
+                desc: "Publicación digital con enfoque arquitectónico y moda experimental. Explora la simetría y asimetría en composiciones visuales atractivas.",
+                role: "Diseñadora Editorial",
+                year: "2025",
+                tools: "InDesign, Photoshop, Web Layout"
+            },
+            {
+                title: "Noir Dashboard",
+                category: "UI / UX Concept",
+                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=700",
+                desc: "Panel de control y visualización de métricas analíticas. Diseñado especialmente en esquema de color oscuro para evitar la fatiga visual y resaltar datos clave con acentos sutiles.",
+                role: "Product Designer",
+                year: "2026",
+                tools: "Figma, Dataviz, CSS Avanzado"
+            }
+        ];
+
+        /* ------------------------------------------
+           4. MODAL DINÁMICO
+           ------------------------------------------ */
+        const projectModal = document.getElementById('project-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalBadge = document.getElementById('modal-badge');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalRole = document.getElementById('modal-role');
+        const modalYear = document.getElementById('modal-year');
+        const modalTools = document.getElementById('modal-tools');
+
+        function openProjectModal(index) {
+            const data = projectData[index];
+            if (!data) return;
+
+            modalImg.src = data.img;
+            modalBadge.textContent = data.category;
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.desc;
+            modalRole.textContent = data.role;
+            modalYear.textContent = data.year;
+            modalTools.textContent = data.tools;
+
+            projectModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeProjectModalOnBackdrop(e) {
+            if (e.target === projectModal) {
+                closeProjectModal();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && projectModal.classList.contains('active')) {
+                closeProjectModal();
+            }
+        });
+
+        /* ------------------------------------------
+           5. CARDS DINÁMICAS: EFECTO SPOTLIGHT
+           ------------------------------------------ */
+        const cards = document.querySelectorAll('.dynamic-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        /* ------------------------------------------
+           6. CONTROL DEL CARRUSEL DE PROYECTOS
+           ------------------------------------------ */
+        const track = document.getElementById('carousel-track');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const counterEl = document.getElementById('carousel-counter');
+        const dotsContainer = document.getElementById('carousel-dots');
+        const totalCards = cards.length;
+        let currentIndex = 0;
+
+        function getVisibleCardsCount() {
+            if (window.innerWidth <= 768) return 1;
+            if (window.innerWidth <= 992) return 2;
+            return 3;
+        }
+
+        function getMaxIndex() {
+            const visible = getVisibleCardsCount();
+            return Math.max(0, totalCards - visible);
+        }
+
+        function initDots() {
+            dotsContainer.innerHTML = '';
+            const maxIdx = getMaxIndex();
+            for (let i = 0; i <= maxIdx; i++) {
+                const dot = document.createElement('div');
+                dot.className = `carousel-dot ${i === currentIndex ? 'active' : ''}`;
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateCarousel() {
+            const maxIdx = getMaxIndex();
+            if (currentIndex > maxIdx) currentIndex = maxIdx;
+            if (currentIndex < 0) currentIndex = 0;
+
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 25; // coincide con el CSS gap: 25px
+            const offset = currentIndex * (cardWidth + gap);
+
+            track.style.transform = `translateX(-${offset}px)`;
+
+            // Actualizar contador
+            const currentDisplay = String(currentIndex + 1).padStart(2, '0');
+            const totalDisplay = String(totalCards).padStart(2, '0');
+            if (counterEl) {
+                counterEl.textContent = `${currentDisplay} / ${totalDisplay}`;
+            }
+
+            // Actualizar dots
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentIndex);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                const maxIdx = getMaxIndex();
+                currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+                updateCarousel();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                const maxIdx = getMaxIndex();
+                currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+                updateCarousel();
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            initDots();
+            updateCarousel();
+        });
+
+        // Inicializar carrusel
+        initDots();
+        updateCarousel();
+
+        // Opcional: auto rotación suave cada 6 segundos si no se interactúa
+        let autoPlayTimer = setInterval(() => {
+            const maxIdx = getMaxIndex();
+            currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+            updateCarousel();
+        }, 6000);
+
+        const viewport = document.getElementById('carousel-viewport');
+        if (viewport) {
+            viewport.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+            viewport.addEventListener('mouseleave', () => {
+                clearInterval(autoPlayTimer);
+                autoPlayTimer = setInterval(() => {
+                    const maxIdx = getMaxIndex();
+                    currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+                    updateCarousel();
+                }, 6000);
+            });
+        }
+
+        /* ------------------------------------------
+           7. FUNCIONALIDAD DE LA GALERÍA DE FOTOS
+           ------------------------------------------ */
+        const photoLightbox = document.getElementById('photo-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxDesc = document.getElementById('lightbox-desc');
+
+        function openPhotoLightbox(cardEl) {
+            const img = cardEl.querySelector('img');
+            const title = cardEl.querySelector('.gallery-title');
+            const desc = cardEl.querySelector('.gallery-caption');
+
+            if (img && photoLightbox) {
+                lightboxImg.src = img.src;
+                lightboxTitle.textContent = title ? title.textContent : 'Momento';
+                lightboxDesc.textContent = desc ? desc.textContent : '';
+                photoLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closePhotoLightbox() {
+            if (photoLightbox) {
+                photoLightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closePhotoLightboxOnBackdrop(e) {
+            if (e.target === photoLightbox) {
+                closePhotoLightbox();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && photoLightbox && photoLightbox.classList.contains('active')) {
+                closePhotoLightbox();
+            }
+        });
+
+        // Filtrado dinámico por categorías
+        function filterGallery(category, btn) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-category');
+                if (category === 'todos' || itemCat === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Subida dinámica de fotos desde el computador
+        function handleNewPhotos(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            const galleryGrid = document.getElementById('exploring-gallery-grid');
+            if (!galleryGrid) return;
+
+            Array.from(files).forEach((file) => {
+                if (!file.type.startsWith('image/')) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newItem = document.createElement('div');
+                    newItem.className = 'gallery-item';
+                    newItem.setAttribute('data-category', 'momentos');
+                    newItem.setAttribute('onclick', 'openPhotoLightbox(this)');
+                    
+                    const fileNameClean = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+
+                    newItem.innerHTML = `
+                        <div class="gallery-thumb-wrap">
+                            <span class="gallery-tag">Nueva Foto</span>
+                            <img src="${e.target.result}" alt="${fileNameClean}">
+                            <div class="gallery-overlay-icon">🔍</div>
+                        </div>
+                        <div class="gallery-info">
+                            <h3 class="gallery-title">${fileNameClean}</h3>
+                            <p class="gallery-caption">Foto agregada a mi galería personal.</p>
+                        </div>
+                    `;
+
+                    galleryGrid.insertBefore(newItem, galleryGrid.firstChild);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            event.target.value = '';
+        }
+    </script>
+</body>
+
+</html>
